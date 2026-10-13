@@ -53,4 +53,5 @@ Check the database connection at `/api/health`. Build the production app with `n
 - Do not upload `.env.local`, credentials, or other secret values.
 - Keep `.env.example` in the repository as a template; it contains placeholders only.
 - `node_modules`, `.next`, build output, local environment files, and TypeScript build info are excluded by `.gitignore`.
-- The GitHub Actions workflow in `.github/workflows/pages.yml` publishes `public/showcase/` when changes are pushed to `main`. In the repository’s **Settings → Pages**, select **GitHub Actions** as the build and deployment source.
+- Pull requests to `main` that update the static showcase run a validation check. After merging, the GitHub Actions workflow in `.github/workflows/pages.yml` publishes `public/showcase/` to GitHub Pages. In the repository’s **Settings → Pages**, select **GitHub Actions** as the build and deployment source.
+- To propose a website update, create a branch, push it, and open a pull request to `main`. A pull request does not update the public site until it is merged; local `npm run dev` is only for testing on your computer.
