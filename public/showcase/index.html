@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8ff">
+    <meta name="description" content="A clear academic clearance dashboard for students, staff, and department administrators.">
+    <title>No Due Management System</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #647089;
+        --line: #e6eaf2;
+        --paper: #ffffff;
+        --purple: #7047eb;
+        --green: #079669;
+        --pink: #e83291;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 4% 0%, #dff8ed 0, transparent 34rem),
+          radial-gradient(ellipse at 98% 4%, #efe8ff 0, transparent 36rem),
+          #f7f8fc;
+        color: var(--ink);
+        font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      a { color: inherit; }
+      .wrap { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+      .topbar {
+        display: flex; align-items: center; justify-content: space-between; gap: 18px;
+        padding: 18px 0;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: -.02em; }
+      .brand-icon {
+        display: grid; width: 42px; height: 42px; place-items: center; border-radius: 14px;
+        color: white; background: linear-gradient(135deg, #10b981, #087c91);
+        box-shadow: 0 8px 18px #07966935;
+      }
+      .brand-icon svg { width: 22px; height: 22px; }
+      .local-label { color: var(--muted); font-size: 13px; }
+      .hero {
+        display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+        align-items: center; gap: 48px; padding: 56px 0 58px;
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px; border: 1px solid #d8f2e7;
+        border-radius: 999px; background: #effcf6; color: #087b58; padding: 6px 11px;
+        font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      }
+      .dot { width: 7px; height: 7px; border-radius: 50%; background: #0bb981; }
+      h1 { max-width: 650px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 64px); line-height: 1.04; letter-spacing: -.055em; }
+      .lead { max-width: 590px; margin: 0; color: var(--muted); font-size: 18px; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+      .button {
+        display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px;
+        border: 1px solid var(--line); border-radius: 12px; padding: 0 16px; text-decoration: none;
+        font-weight: 700; transition: transform .16s ease, box-shadow .16s ease;
+      }
+      .button:hover { transform: translateY(-1px); box-shadow: 0 8px 20px #17203312; }
+      .button.primary { border-color: var(--purple); color: #fff; background: var(--purple); }
+      .button.secondary { background: #fff; }
+      .preview {
+        position: relative; overflow: hidden; border: 1px solid #e7e8f1; border-radius: 24px;
+        background: #fff; padding: 18px; box-shadow: 0 24px 70px #362a6517;
+        transform: rotate(1deg);
+      }
+      .preview-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 3px 2px 18px; }
+      .preview-name { font-weight: 750; }
+      .preview-role { color: var(--muted); font-size: 12px; }
+      .avatar { display: grid; width: 35px; height: 35px; place-items: center; border-radius: 12px; background: #f0ebff; color: var(--purple); font-weight: 800; }
+      .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat { min-height: 98px; padding: 14px; border-radius: 16px; color: #fff; }
+      .stat span { display: block; font-size: 12px; opacity: .9; }
+      .stat strong { display: block; margin-top: 9px; font-size: 25px; letter-spacing: -.03em; }
+      .s-pink { background: linear-gradient(135deg, #f04ca8, #d51e7e); }
+      .s-green { background: linear-gradient(135deg, #18bd7d, #078656); }
+      .s-orange { background: linear-gradient(135deg, #ff9b42, #ed6b1d); }
+      .s-purple { background: linear-gradient(135deg, #9b5bfa, #7139dc); }
+      .progress-card { margin-top: 12px; padding: 15px; border: 1px solid var(--line); border-radius: 16px; }
+      .progress-title { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
+      .track { height: 9px; margin: 12px 0 7px; overflow: hidden; border-radius: 20px; background: #f0edf7; }
+      .fill { width: 82%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #eb3b9c, #8d53ef, #4388f4); }
+      .progress-note { color: var(--muted); font-size: 11px; text-align: right; }
+      section { padding: 26px 0 48px; }
+      .section-heading { max-width: 660px; margin-bottom: 20px; }
+      .section-heading h2 { margin: 0 0 7px; font-size: clamp(25px, 3vw, 34px); letter-spacing: -.04em; }
+      .section-heading p { margin: 0; color: var(--muted); }
+      .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+      .feature { border: 1px solid var(--line); border-radius: 18px; background: #ffffffdb; padding: 21px; }
+      .feature-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 13px; background: #f0ebff; color: var(--purple); }
+      .feature-icon svg { width: 20px; height: 20px; }
+      .feature h3 { margin: 16px 0 6px; font-size: 16px; }
+      .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+      .notice {
+        display: flex; align-items: flex-start; gap: 12px; margin: 6px 0 48px;
+        border: 1px solid #eadffb; border-radius: 16px; background: #f7f3ff; padding: 16px 18px;
+        color: #543b8d; font-size: 13px;
+      }
+      .notice strong { display: block; margin-bottom: 2px; color: #382268; }
+      footer { border-top: 1px solid var(--line); padding: 20px 0 28px; color: var(--muted); font-size: 12px; }
+      @media (max-width: 760px) {
+        .hero { grid-template-columns: 1fr; gap: 34px; padding: 38px 0 42px; }
+        .preview { transform: none; }
+        .features { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 480px) {
+        .wrap { width: min(100% - 26px, 1120px); }
+        .local-label { display: none; }
+        .hero-actions .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M8 7h8M8 11h8"/></svg>
+        </span>
+        <span>No Due Management System</span>
+      </div>
+      <span class="local-label">Academic clearance · Student / Staff / HOD</span>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Academic progress, made clear</span>
+          <h1 id="hero-title">A simpler path to campus clearance.</h1>
+          <p class="lead">One organized workspace for tracking academic progress, assignments, and no-due approvals across your department.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#features">
+              Explore the dashboard
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="button secondary" href="#local-run">Run the full app locally</a>
+          </div>
+        </div>
+
+        <div class="preview" aria-label="Illustrative student dashboard preview">
+          <div class="preview-head">
+            <div><div class="preview-name">Good afternoon, Aarav</div><div class="preview-role">Student dashboard · Semester 5</div></div>
+            <div class="avatar" aria-hidden="true">A</div>
+          </div>
+          <div class="stats">
+            <div class="stat s-pink"><span>Total subjects</span><strong>6</strong></div>
+            <div class="stat s-green"><span>Completed</span><strong>5</strong></div>
+            <div class="stat s-orange"><span>Pending</span><strong>1</strong></div>
+            <div class="stat s-purple"><span>Final status</span><strong>In review</strong></div>
+          </div>
+          <div class="progress-card">
+            <div class="progress-title"><span>Overall progress</span><span>82%</span></div>
+            <div class="track"><div class="fill"></div></div>
+            <div class="progress-note">5 of 6 subjects approved</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" aria-labelledby="features-title">
+        <div class="section-heading">
+          <h2 id="features-title">Everything in one clear view</h2>
+          <p>Purpose-built dashboards help each role see the right tasks and status at a glance.</p>
+        </div>
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></div>
+            <h3>Student progress</h3>
+            <p>Review subject marks, attendance, approval status, assignment instructions, and due dates.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6"/></svg></div>
+            <h3>Staff workspace</h3>
+            <p>Create subject assignments, set deadlines, review student records, and collect file submissions.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 3 8l9 5 9-5-9-5ZM5 10.5V16l7 4 7-4v-5.5"/></svg></div>
+            <h3>Department oversight</h3>
+            <p>Manage classes, semesters, subjects, staff allocations, and no-due approval requests.</p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="notice" id="local-run">
+        <span aria-hidden="true">ⓘ</span>
+        <div><strong>GitHub Pages preview</strong>This page is a static showcase. Sign-in, assignment uploads, approvals, and database-backed dashboards require the full app running on a server. For local development, use <code>npm run dev</code> from the project root.</div>
+      </aside>
+    </main>
+
+    <footer><div class="wrap">No Due Management System · Static project showcase</div></footer>
+  </body>
+</html>
