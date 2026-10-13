@@ -1,5 +1,21 @@
 # 🎓 No Dues Management System
 
+## Deploy the full application to Vercel
+
+GitHub Pages can only host the static showcase; it cannot run the login, API routes, MongoDB operations, approvals, or assignment uploads. To make those features available online, deploy this Next.js project to Vercel:
+
+1. Sign in to [Vercel](https://vercel.com/) using the GitHub account that owns `LogeshKumar30/NDMS`.
+2. Choose **Add New → Project**, import `LogeshKumar30/NDMS`, and keep the project root as the Root Directory. Vercel should detect Next.js automatically.
+3. Before deploying, add these **Production** environment variables in the Vercel project settings:
+   - `MONGODB_URI` — connection string for a hosted MongoDB database reachable from Vercel. A local `127.0.0.1` MongoDB URL will not work on Vercel.
+   - `MONGODB_DB` — database name, for example `no_due_db`.
+   - `JWT_SECRET` — a unique, long, random secret. Do not use the development fallback or commit the value to GitHub.
+   - `GEMINI_API_KEY` — optional; without it, the chatbot uses built-in guidance.
+4. Deploy the project and open the Vercel deployment URL. Check `/api/health` to confirm MongoDB is reachable.
+5. Enable automatic deployments from the `main` branch in Vercel’s Git settings. Future merged changes will be deployed by Vercel.
+
+The GitHub Pages URL remains a static showcase. Use the Vercel URL for the complete application. Keep `.env.local` private and enter production secrets directly in Vercel’s environment-variable settings.
+
 ### 🚀 Smart Department Administration & Student Clearance
 
 A web-based application designed to simplify student no-dues clearance and departmental administration through role-based access control, pre-request approvals, Excel-based record management, class and subject allocation, leave approvals, and integrated chatbot assistance.
